@@ -2,16 +2,7 @@
 
 use \Bitrix\Main\Security\Random;
 
-Class CLogic
-{
-        /*$arFields = array(
-            "ID"          => 124,
-            "CONTRACT_ID" => 1,
-            "TYPE_SID"    => "LEFT"
-        );
-
-        CEvent::Send("RESTORE_PASSWORD", 's1', $arFields);*/
-
+Class CLogic{
 
     public static function OnBeforeUserSendPassword(&$arFields){
 
@@ -27,7 +18,7 @@ Class CLogic
 
         $randString = 'abcdefghijklnmopqrstuvwxyzABCDEFGHIJKLNMOPQRSTUVWXYZ0123456789';
         $passwordLenght = rand(7, 10);
-        $newPassword = Random::getStringByCharsets($passwordLenght, $randString);//randomPassword($ID);
+        $newPassword = Random::getStringByCharsets($passwordLenght, $randString);
 
         $fields = Array(
             "PASSWORD"          => $newPassword,
@@ -37,38 +28,18 @@ Class CLogic
         $user = new CUser;
         $user->Update($ID, $fields);
 
-        static::sendMail($newPassword, $arFields['SITE_ID']);
+        static::sendMail($newPassword, $arUser['EMAIL'], $arFields['SITE_ID']);
+
+        return false;
     }
 
-    public static function sendMail($NEW_PASSW, $SITE_ID){
+    public static function sendMail($NEW_PASSW, $userEmail,  $SITE_ID){
 
         $arFields = array(
-            "NEW_PASSW" => $NEW_PASSW
+            "NEW_PASSW" => $NEW_PASSW,
+            "USER_EMAIL" => $userEmail
         );
-
         CEvent::SendImmediate("RESTORE_PASSWORD", $SITE_ID, $arFields);
     }
-
-    /*public static function randomPassword($gid){
-
-        if (!is_array($gid) && is_numeric($gid) && $gid > 0) {
-            $gid = array($gid);
-        }
-
-        $policy = CUser::GetGroupPolicy($gid);
-        $length = $policy['PASSWORD_LENGTH'];
-        if ($length <= 0) {
-            $length = 6;
-        }
-
-        $alphabet = Random::ALPHABET_ALPHAUPPER
-        | Random::ALPHABET_ALPHALOWER | Random::ALPHABET_NUM;
-
-        if ($policy['PASSWORD_PUNCTUATION'] == 'Y') {
-            $alphabet |= Random::ALPHABET_SPECIAL;
-        }
-
-        return Random::getStringByAlphabet($length, $alphabet);
-    }*/
 }
 ?>

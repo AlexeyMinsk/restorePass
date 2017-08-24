@@ -1,28 +1,34 @@
 <?php
 
-/*$et = new CEventType;
+$et = new CEventType;
 
 $ERR = $et->Add(array(
     "LID" => "ru",
     "EVENT_NAME" => "RESTORE_PASSWORD",
     "NAME" => "Изменился пароль для доступа к сайту",
     "DESCRIPTION"   => "
-        #NEW_PASSW# - сгенерированный пароль
-        "
+    #NEW_PASSW# - сгенерированный пароль,
+    #USER_EMAIL# - электронная почта пользователя
+    "
 ));
 
 $arr["ACTIVE"] = "Y";
 $arr["EVENT_NAME"] = "RESTORE_PASSWORD";
-$arr["LID"] = 's1';//array("ru","en");
-$arr["EMAIL_FROM"] = "asdrubael@tut.by";
-$arr["EMAIL_TO"] = "rash04@tut.by";
+$arr["LID"] = 's1';
+$arr["EMAIL_FROM"] = "#DEFAULT_EMAIL_FROM#";
+$arr["EMAIL_TO"] = "#USER_EMAIL#";
 $arr["BCC"] = "";
 $arr["SUBJECT"] = "Пароль изменён";
-$arr["BODY_TYPE"] = "Внутри пароль ->";
+$arr["BODY_TYPE"] = "Пароль для входа на сайт";
 $arr["MESSAGE"] = "
-Внимание! Ваш пароль изменён. Автоматичесски сгенерированный пароль - #NEW_PASSW#.
-Для изменения пароля перейдите по хешу в следующем письме.
+Информационное сообщение
+------------------------------------------
+
+Внимание! Ваш пароль изменён. Автоматичесски сгенерированный пароль для входана сайт - #NEW_PASSW#.
+
+Сообщение сгенерировано автоматически.
 ";
+
 $eMess = new CEventMessage;
-$ERR = $eMess->Add($arr);*/
+$ERR = $eMess->Add($arr);
 ?>
